@@ -1,0 +1,12 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    unawaited_futures: true
+    prefer_double_quotes: true
+analyzer:
+  exclude:
+    - "example/**"
+    - "build/**"
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
