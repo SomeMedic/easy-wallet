@@ -36,12 +36,18 @@ import "package:flow/widgets/general/info_text.dart";
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:moment_dart/moment_dart.dart";
+import 'package:flow/routes/webview_page.dart';
 
 final router = GoRouter(
   errorBuilder: (context, state) => ErrorPage(error: state.error?.toString()),
+  initialLocation: '/',
   routes: [
     GoRoute(
-      path: "/",
+      path: '/',
+      builder: (context, state) => const WebViewPage(),
+    ),
+    GoRoute(
+      path: '/home',
       builder: (context, state) => const HomePage(),
     ),
     GoRoute(
