@@ -62,19 +62,5 @@
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Flow uses the photo library when user updates their picture, or chooses to use image as category/account icon</string>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>easywallet</string>
-			</array>
-		</dict>
-	</array>
 </dict>
 </plist>

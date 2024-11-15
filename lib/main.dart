@@ -1,3 +1,5 @@
+
+
 import "dart:async";
 import "dart:developer";
 import "dart:io";
@@ -18,9 +20,6 @@ import "package:intl/intl.dart";
 import "package:moment_dart/moment_dart.dart";
 import "package:package_info_plus/package_info_plus.dart";
 import "package:pie_menu/pie_menu.dart";
-import 'package:flow/routes/webview_page.dart';
-import 'package:flow/routes/home_page.dart';
-import 'package:go_router/go_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,40 +48,11 @@ void main() async {
 
   ExchangeRatesService().init();
 
-  if (LocalPreferences().completedInitialSetup.get() == null) {
-    await LocalPreferences().completedInitialSetup.set(false);
-  }
-
-  runApp(Flow(
-    themeMode: ThemeMode.system,
-    pieTheme: PieTheme(),
-    child: MaterialApp.router(
-      routerConfig: router,
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        if (flowDebugMode || Platform.isIOS) GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        FlowLocalizations.delegate,
-      ],
-      supportedLocales: FlowLocalizations.supportedLanguages,
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      debugShowCheckedModeBanner: false,
-    ),
-  ));
+  runApp(const Flow());
 }
 
 class Flow extends StatefulWidget {
-  final ThemeMode themeMode;
-  final PieTheme pieTheme;
-  final Widget child;
-
-  const Flow({
-    super.key,
-    required this.themeMode,
-    required this.pieTheme,
-    required this.child,
-  });
+  const Flow({super.key});
 
   @override
   State<Flow> createState() => FlowState();
@@ -133,7 +103,23 @@ class FlowState extends State<Flow> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.child;
+    return MaterialApp.router(
+      onGenerateTitle: (context) => "appName".t(context),
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        if (flowDebugMode || Platform.isIOS)
+          GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        FlowLocalizations.delegate,
+      ],
+      supportedLocales: FlowLocalizations.supportedLanguages,
+      locale: _locale,
+      routerConfig: router,
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: _themeMode,
+      debugShowCheckedModeBanner: false,
+    );
   }
 
   void _reloadTheme() {
